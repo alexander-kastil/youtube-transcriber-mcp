@@ -100,5 +100,5 @@ def get_youtube_transcription(
 
 
 if __name__ == "__main__":
-    # Run the MCP server
-    mcp.run()
+    # Run the MCP server with Streamable HTTP transport by default
+    mcp.run(transport="streamable-http")

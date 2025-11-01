@@ -29,20 +29,72 @@ This project implements an MCP server that allows AI assistants and other MCP cl
 
 ## Quick Start
 
-1. Navigate to the `src` directory:
+### 1. Create a Virtual Environment
+
+It's recommended to use a virtual environment to isolate dependencies:
+
+```bash
+# Create a virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+# On Linux/macOS:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
+```
+
+### 2. Navigate to the `src/youtube-transcriber-mcp` directory:
    ```bash
-   cd src
+   cd src/youtube-transcriber-mcp
    ```
 
-2. Install dependencies:
+### 3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Run the server:
+### 4. Run the server:
    ```bash
    python server.py
    ```
+
+The server now runs with **Streamable HTTP transport by default**, making it compatible with modern MCP clients and testing tools.
+
+## Testing with MCP Inspector
+
+The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is a developer tool for testing MCP servers. To test this server with the inspector:
+
+### Installation
+
+```bash
+# Install the MCP Inspector globally
+npm install -g @modelcontextprotocol/inspector
+```
+
+### Running the Inspector
+
+```bash
+# Start the inspector with your server
+mcp-inspector python src/youtube-transcriber-mcp/server.py
+```
+
+This will:
+1. Start your MCP server with Streamable HTTP transport
+2. Open a web interface in your browser for testing
+3. Allow you to interact with the `get_youtube_transcription` tool
+
+### Testing the Tool
+
+In the Inspector UI:
+1. Navigate to the **Tools** section
+2. Select the `get_youtube_transcription` tool
+3. Provide test parameters:
+   - `url`: A YouTube video URL (e.g., `https://www.youtube.com/watch?v=dQw4w9WgXcQ`)
+   - `language`: Language code (e.g., `en` for English)
+4. Click **Execute** to test the tool
+
+The Inspector provides real-time feedback on requests, responses, and any errors.
 
 ## Documentation
 

@@ -11,7 +11,22 @@ A Model Context Protocol (MCP) server that provides YouTube video transcription 
 
 ## Installation
 
-1. Install the required dependencies:
+### Setting Up a Virtual Environment
+
+It's highly recommended to use a virtual environment to manage dependencies:
+
+```bash
+# Create a virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+# On Linux/macOS:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
+```
+
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -27,7 +42,7 @@ To run the server locally:
 python server.py
 ```
 
-The server will start and listen for MCP protocol connections.
+The server will start with **Streamable HTTP transport by default**, listening on the configured port for MCP protocol connections via HTTP.
 
 ### Available Tools
 
@@ -50,6 +65,71 @@ result = get_youtube_transcription(
     language="en"
 )
 ```
+
+## Testing with MCP Inspector
+
+The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is an interactive developer tool for testing MCP servers. It provides a web-based UI to interact with your server's tools, prompts, and resources.
+
+### Prerequisites
+
+- Node.js and npm installed on your system
+- Your virtual environment activated with dependencies installed
+
+### Installation
+
+Install the MCP Inspector globally:
+
+```bash
+npm install -g @modelcontextprotocol/inspector
+```
+
+### Running the Inspector
+
+Launch the inspector with your server:
+
+```bash
+mcp-inspector python server.py
+```
+
+Or from the repository root:
+
+```bash
+mcp-inspector python src/youtube-transcriber-mcp/server.py
+```
+
+This will:
+1. Start the YouTube Transcriber MCP server with Streamable HTTP transport
+2. Launch a web-based inspector interface (typically at http://localhost:5173)
+3. Automatically connect the inspector to your server
+
+### Using the Inspector
+
+Once the inspector opens in your browser:
+
+1. **View Available Tools**: Navigate to the Tools tab to see `get_youtube_transcription`
+2. **Test the Tool**:
+   - Click on `get_youtube_transcription`
+   - Fill in the parameters:
+     - `url`: Enter a YouTube video URL (e.g., `https://www.youtube.com/watch?v=dQw4w9WgXcQ`)
+     - `language`: Enter a language code (e.g., `en`, `es`, `fr`)
+   - Click **Execute** or **Call Tool**
+3. **View Results**: The inspector will display the returned transcript in the response panel
+4. **Debug**: Check the Network tab for request/response details and the Console for logs
+
+### Example Test Cases
+
+Try these YouTube videos for testing:
+- Short video: `https://www.youtube.com/watch?v=dQw4w9WgXcQ`
+- Video with multiple languages: Test different `language` parameter values
+- Invalid URL: Test error handling with `https://example.com/not-a-video`
+
+### Troubleshooting
+
+If the inspector fails to connect:
+- Ensure your virtual environment is activated
+- Verify all dependencies are installed: `pip install -r requirements.txt`
+- Check that no other service is using the default port
+- Review server logs for error messages
 
 ## Deployment to Azure App Service
 
