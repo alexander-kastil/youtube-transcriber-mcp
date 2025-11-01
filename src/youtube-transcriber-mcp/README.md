@@ -100,7 +100,7 @@ mcp-inspector python src/youtube-transcriber-mcp/server.py
 This will:
 1. Start the YouTube Transcriber MCP server with Streamable HTTP transport
 2. Launch a web-based inspector interface (typically at http://localhost:5173)
-3. automatically connect the inspector to your server
+3. Automatically connect the inspector to your server
 
 ### Using the Inspector
 
