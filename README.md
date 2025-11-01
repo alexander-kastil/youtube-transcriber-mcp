@@ -29,96 +29,12 @@ This project implements an MCP server that allows AI assistants and other MCP cl
 
 ## Quick Start
 
-### 1. Create a Virtual Environment
+- Execute src\youtube-transcriber-mcp\start.ps1. This PowerShell script will create a virtual environment, install the required dependencies, and start the MCP server on `http://127.0.0.1:8000/mcp`.
 
-It's recommended to use a virtual environment to isolate dependencies:
+> Note: There is also a start.sh script for Linux/macOS users.
 
-```bash
-# Create a virtual environment
-python -m venv venv
-
-# Activate the virtual environment
-# On Linux/macOS:
-source venv/bin/activate
-# On Windows:
-# venv\Scripts\activate
-```
-
-### 2. Navigate to the `src/youtube-transcriber-mcp` directory:
-   ```bash
-   cd src/youtube-transcriber-mcp
-   ```
-
-### 3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-### 4. Run the server:
-   ```bash
-   python server.py
-   ```
-
-The server now runs with **Streamable HTTP transport by default**, making it compatible with modern MCP clients and testing tools.
-
-## Testing with MCP Inspector
-
-The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is a developer tool for testing MCP servers. To test this server with the inspector:
-
-### Installation
+- Run MCP Inspector using:
 
 ```bash
-# Install the MCP Inspector globally
-npm install -g @modelcontextprotocol/inspector
+npx mcp-inspector --transport streamable-http --server-url http://127.0.0.1:8000/mcp
 ```
-
-### Running the Inspector
-
-From the repository root directory, run:
-
-```bash
-# Start the inspector with your server
-mcp-inspector python src/youtube-transcriber-mcp/server.py
-```
-
-This will:
-1. Start your MCP server with Streamable HTTP transport
-2. Open a web interface in your browser for testing
-3. Allow you to interact with the `get_youtube_transcription` tool
-
-### Testing the Tool
-
-In the Inspector UI:
-1. Navigate to the **Tools** section
-2. Select the `get_youtube_transcription` tool
-3. Provide test parameters:
-   - `url`: A YouTube video URL (e.g., `https://www.youtube.com/watch?v=dQw4w9WgXcQ`)
-   - `language`: Language code (e.g., `en` for English)
-4. Click **Execute** to test the tool
-
-The Inspector provides real-time feedback on requests, responses, and any errors.
-
-## Documentation
-
-For detailed documentation including:
-- Tool usage examples
-- Azure deployment instructions
-- Configuration options
-
-Please see [src/README.md](src/README.md)
-
-## Dependencies
-
-- `langchain`: LangChain framework
-- `langchain-community`: Community integrations for LangChain
-- `youtube-transcript-api`: YouTube transcript fetching
-- `requests`: HTTP library
-- `fastmcp`: FastMCP framework for MCP servers
-
-## License
-
-[Add your license information here]
-
-## Contributing
-
-[Add contribution guidelines here]
