@@ -5,7 +5,6 @@ youtube-transcript-api through langchain-community's YoutubeLoader.
 """
 
 import logging
-from typing import Optional
 from urllib.parse import urlparse, parse_qs
 
 from fastmcp import FastMCP

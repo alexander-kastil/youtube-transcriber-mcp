@@ -140,11 +140,9 @@ All errors are logged and returned with descriptive messages.
 ## Dependencies
 
 See `requirements.txt` for the complete list of dependencies:
-- `azure-functions`: Azure Functions support
 - `langchain`: LangChain framework
 - `langchain-community`: Community integrations for LangChain
 - `youtube-transcript-api`: YouTube transcript fetching
-- `openai`: OpenAI API client
 - `requests`: HTTP library
 - `fastmcp`: FastMCP framework for MCP servers
 
