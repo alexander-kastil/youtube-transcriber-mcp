@@ -100,7 +100,7 @@ mcp-inspector python src/youtube-transcriber-mcp/server.py
 This will:
 1. Start the YouTube Transcriber MCP server with Streamable HTTP transport
 2. Launch a web-based inspector interface (typically at http://localhost:5173)
-3. Automatically connect the inspector to your server
+3. automatically connect the inspector to your server
 
 ### Using the Inspector
 
@@ -110,8 +110,8 @@ Once the inspector opens in your browser:
 2. **Test the Tool**:
    - Click on `get_youtube_transcription`
    - Fill in the parameters:
-     - `url`: Enter a YouTube video URL (e.g., `https://www.youtube.com/watch?v=dQw4w9WgXcQ`)
-     - `language`: Enter a language code (e.g., `en`, `es`, `fr`)
+     - `url` (required): Enter a YouTube video URL (e.g., `https://www.youtube.com/watch?v=dQw4w9WgXcQ`)
+     - `language` (optional, default: "en"): Enter a language code (e.g., `en`, `es`, `fr`)
    - Click **Execute** or **Call Tool**
 3. **View Results**: The inspector will display the returned transcript in the response panel
 4. **Debug**: Check the Network tab for request/response details and the Console for logs

@@ -74,6 +74,8 @@ npm install -g @modelcontextprotocol/inspector
 
 ### Running the Inspector
 
+From the repository root directory, run:
+
 ```bash
 # Start the inspector with your server
 mcp-inspector python src/youtube-transcriber-mcp/server.py
