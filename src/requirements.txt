@@ -1,0 +1,7 @@
+azure-functions
+langchain
+langchain-community
+youtube-transcript-api
+openai
+requests
+fastmcp
