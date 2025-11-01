@@ -11,7 +11,22 @@ A Model Context Protocol (MCP) server that provides YouTube video transcription 
 
 ## Installation
 
-1. Install the required dependencies:
+### Setting Up a Virtual Environment
+
+It's highly recommended to use a virtual environment to manage dependencies:
+
+```bash
+# Create a virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+# On Linux/macOS:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
+```
+
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -27,7 +42,7 @@ To run the server locally:
 python server.py
 ```
 
-The server will start and listen for MCP protocol connections.
+Leave this process running. The server starts with **Streamable HTTP transport by default** and listens on `http://127.0.0.1:8000/mcp` for incoming MCP connections.
 
 ### Available Tools
 
@@ -36,13 +51,16 @@ The server will start and listen for MCP protocol connections.
 Fetches the transcription of a YouTube video.
 
 **Parameters:**
+
 - `url` (required): The YouTube video URL (e.g., `https://www.youtube.com/watch?v=VIDEO_ID` or `https://youtu.be/VIDEO_ID`)
 - `language` (optional): The language code for the transcript (default: "en"). Examples: "en" for English, "es" for Spanish, "fr" for French, etc.
 
 **Returns:**
+
 - The full transcription text of the video
 
 **Example Usage:**
+
 ```python
 # Using the MCP tool
 result = get_youtube_transcription(
@@ -50,6 +68,78 @@ result = get_youtube_transcription(
     language="en"
 )
 ```
+
+## Testing with MCP Inspector
+
+The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is an interactive developer tool for testing MCP servers. It provides a web-based UI to interact with your server's tools, prompts, and resources.
+
+### Prerequisites
+
+- Node.js and npm installed on your system
+- Your virtual environment activated with dependencies installed
+
+### Installation
+
+Install the MCP Inspector globally:
+
+```bash
+npm install -g @modelcontextprotocol/inspector
+```
+
+### Running the Inspector
+
+Launch the inspector after the server is running. Use a second terminal window or tab so the server can keep running in the background.
+
+From `src/youtube-transcriber-mcp/`:
+
+```bash
+mcp-inspector --transport streamable-http --server-url http://127.0.0.1:8000/mcp
+```
+
+From the repository root:
+
+```bash
+mcp-inspector --transport streamable-http --server-url http://127.0.0.1:8000/mcp python src/youtube-transcriber-mcp/server.py
+```
+
+This will:
+
+1. Open the MCP Inspector web UI (typically at http://localhost:5173)
+2. Connect the inspector through the Streamable HTTP proxy to the running server on `http://127.0.0.1:8000/mcp`
+
+### Using the Inspector
+
+Once the inspector opens in your browser:
+
+1. **View Available Tools**: Navigate to the Tools tab to see `get_youtube_transcription`
+2. **Test the Tool**:
+   - Click on `get_youtube_transcription`
+   - Fill in the parameters:
+     - `url` (required): Enter a YouTube video URL (e.g., `https://www.youtube.com/watch?v=dQw4w9WgXcQ`)
+     - `language` (optional, default: "en"): Enter a language code (e.g., `en`, `es`, `fr`)
+   - Click **Execute** or **Call Tool**
+3. **View Results**: The inspector will display the returned transcript in the response panel
+4. **Debug**: Check the Network tab for request/response details and the Console for logs
+
+### Example Test Cases
+
+Try these YouTube videos for testing:
+
+- Short video: `https://www.youtube.com/watch?v=dQw4w9WgXcQ`
+- Video with multiple languages: Test different `language` parameter values
+- Longer-form video: `https://www.youtube.com/watch?v=zTiLF3-BvGs`
+- Invalid URL: Test error handling with `https://example.com/not-a-video`
+
+### Troubleshooting
+
+If the inspector fails to connect:
+
+- Ensure your virtual environment is activated
+- Verify all dependencies are installed: `pip install -r requirements.txt`
+- Make sure `python server.py` is running in a separate terminal and showing `Uvicorn running on http://127.0.0.1:8000`
+- Keep the inspector pointed at `http://127.0.0.1:8000/mcp`
+- Check that no other service is using the default port
+- Review server logs for error messages
 
 ## Deployment to Azure App Service
 
@@ -130,6 +220,7 @@ The server uses FastMCP which handles the MCP protocol communication. No additio
 ## Error Handling
 
 The server includes comprehensive error handling for:
+
 - Invalid YouTube URLs
 - Missing transcripts
 - Network errors
@@ -140,6 +231,7 @@ All errors are logged and returned with descriptive messages.
 ## Dependencies
 
 See `requirements.txt` for the complete list of dependencies:
+
 - `langchain`: LangChain framework
 - `langchain-community`: Community integrations for LangChain
 - `youtube-transcript-api`: YouTube transcript fetching
